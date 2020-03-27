@@ -1,4 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://admUttsDA:admUttsDA@mern-cluster-jaqga.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "systemoperator"
-}
