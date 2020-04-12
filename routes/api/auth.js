@@ -1,8 +1,12 @@
 const express = require('express');
+const {check, validationResult} = require('express-validator');
 const router = express.Router();
 const auth = require('../../middleware/auth');
-const User = require('../../modules/User');
+const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
+const config = require('config');
+const jwt = require('jsonwebtoken');
+
 
 // GET api/auth
 router.get('/', auth, async (req, res) => {
@@ -19,14 +23,9 @@ router.get('/', auth, async (req, res) => {
 
 router.post(
   '/',
-  [
-    check('name', 'Name is required')
-      .not()
-      .isEmpty(),
+  [ 
     check('email', 'Email is not valid').isEmail(),
-    check('password', 'Min length is 6 characters').isLength({
-      min: 6
-    })
+    check('password', 'Password is required').exists()
   ],
   async (req, res) => {
     const error = validationResult(req);
@@ -34,39 +33,28 @@ router.post(
       return res.status(400).json({ error: error.array() });
     }
 
-    const { name, email, password } = req.body;
+    const {  email, password } = req.body;
 
     try {
       // check if User already exist
       let user = await User.findOne({ email });
-      if (user) {
-        res.status(400).json({ error: [{ msg: 'User already exist' }] });
+      if (!user) {
+        res.status(400).json({ error: [{ msg: 'Invalid credentials' }] });
       }
-      // Gravatar
-      const avatar = gravatar.url(email, {
-        s: '200',
-        r: 'pg',
-        d: 'mm'
-      });
-      // Create a new user
-      user = new User({
-        name,
-        email,
-        password,
-        avatar
-      });
 
-      //Enqrypt the password
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hashSync(password, salt);
-      //save user in DB
-      await user.save();
+      const isMatch = await bcrypt.compare(password, user.password)
+      if(!isMatch){
+        res.status(400).json({ error: [{ msg: 'Invalid credentials' }] });
+      }
+
       //Return a webtoken (JWT)
       const payload = {
         user: {
           id: user.id
         }
       };
+
+      
 
       jwt.sign(
         payload,
@@ -84,4 +72,4 @@ router.post(
   }
 );
 
-module.exports = router;
+  module.exports = router;

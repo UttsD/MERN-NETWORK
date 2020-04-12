@@ -7,7 +7,7 @@ module.exports = function(req, res, next) {
   if (!token) {
     res.status(401).send({ msg: 'No token error' });
   }
-
+ 
   try {
     const decoded = jwt.verify(token, config.get('jwtSecret'));
 

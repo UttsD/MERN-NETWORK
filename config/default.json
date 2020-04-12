@@ -1,0 +1,6 @@
+{
+    "mongoURI": "mongodb+srv://admUttsDA:admUttsDA@mern-cluster-jaqga.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret":      "systemoperator",
+    "githubClientId":      "163043331e08a4829cec",
+    "githubSecret":      "258a78e333375641fd563047d75769ed8a95dfe7"
+}
