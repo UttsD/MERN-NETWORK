@@ -14,7 +14,7 @@ function Dashboard({getCurrentProfile, deleteAccount, auth: {user}, profile: {pr
     
     useEffect (() => {
         getCurrentProfile();
-    }, []);
+    }, [getCurrentProfile]);
     
     console.log(profile)
     

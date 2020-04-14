@@ -1,4 +1,4 @@
-import {REGISTER_SUCCESS, REGISTER_FAIL, AUTH_SUCCESS, AUTH_FAIL, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, CLEAR_PROFILE, DELETE_ACCOUNT} from '../actions/types'
+import {REGISTER_SUCCESS, REGISTER_FAIL, AUTH_SUCCESS, AUTH_FAIL, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, CLEAR_PROFILE} from '../actions/types'
 import axios from 'axios';
 import {setAlert} from './alert-actions'
 import setAuthToken from '../helpers/setAuthToken'

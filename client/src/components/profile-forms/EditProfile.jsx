@@ -41,7 +41,7 @@ const EditProfile = ({profile: {profile, loading}, createProfile, history, getCu
         linkedin: loading || !profile.social ? '' : profile.social.linkedin,
         instagram: loading || !profile.social ? '' : profile.social.instagram
       })
-    }, [loading])
+    }, [loading, getCurrentProfile])
 
     const [displaySocialInputs, toggleSocialInputs] = useState(false);
  
