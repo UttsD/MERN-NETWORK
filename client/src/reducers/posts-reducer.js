@@ -2,7 +2,11 @@ import {
     UPDATE_LIKES,
     GET_POSTS,
     POST_ERROR,
-    DELETE_POST
+    DELETE_POST,
+    ADD_POST,
+    GET_POST,
+    COMMENT_POST,
+    REMOVE_COMMENT_POST
 } from '../actions/types';
 
 
@@ -21,9 +25,22 @@ export default function (state = initialState, action) {
     switch (type) {
         case GET_POSTS:
             return {...state, posts: payload, loading: false};
+        case GET_POST:
+            return {...state, post: payload, loading: false};
+        case ADD_POST:
+            return {...state, posts: [payload, ...state.posts], loading: false};
         case UPDATE_LIKES:
             return {...state, 
                 posts: state.posts.map(post => post._id === payload.id ? {...post, likes: payload.likes}: post),
+                loading: false}
+        case COMMENT_POST:
+            return {...state, post: { ...state.post, comments: payload.comments},
+                loading: false}
+        case REMOVE_COMMENT_POST:
+            return {...state,
+                post: {
+                ...state.post, 
+                comments: state.post.comments.filter(comment => comment._id !== payload)},
                 loading: false}
             case POST_ERROR:
                 return {

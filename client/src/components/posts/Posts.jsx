@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getPosts } from '../../actions/post-actions'
 import  PostItem  from './PostItem'
+import  PostForm  from './PostForm'
 import Preloader from '../layout/Preloader'
 
 
@@ -15,22 +16,8 @@ function Posts({ getPosts, post: { posts, loading } }) {
         <Fragment>
             <h1 class="large text-primary">Posts</h1>
             <p class="lead"><i class="fas fa-user"></i> Welcome to the community!</p>
-
-            <div class="post-form">
-                <div class="bg-primary p">
-                    <h3>Say Something...</h3>
-                </div>
-                <form class="form my-1">
-                    <textarea
-                        name="text"
-                        cols="30"
-                        rows="5"
-                        placeholder="Create a post"
-                        required
-                    ></textarea>
-                    <input type="submit" class="btn btn-dark my-1" value="Submit" />
-                </form>
-            </div>
+            <PostForm />
+            
             {loading ? <Preloader /> :
                 <Fragment>
                     <div class="posts">

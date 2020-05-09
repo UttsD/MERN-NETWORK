@@ -21,9 +21,9 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth, match })
                     <Link to='/profiles' className='btn btn-light'>Back to Profiles</Link>
                     {auth.isAuthenticated && auth.loading === false && auth.user._id === profile.user._id &&
                         (<Link to='/edit-profile' className='btn btn-dark'>Edit Profile</Link>)}
-                </Fragment>
+               
 
-            }
+            
             <div class="profile-grid my-1">
                 <ProfileTop profile={profile} />
                 <ProfileAbout profile={profile} />
@@ -35,7 +35,8 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth, match })
                     <h2 class="text-primary">Experience</h2>
                     {profile.experience.length > 0 ? <ProfileExperience experience={profile.experience} /> : (<h4>No experience</h4>)}</div>
             </div>
-            {profile.githubuser && <ProfileGithubRepos githubuser = {profile.githubuser}/>}
+            {profile.githubuser && <ProfileGithubRepos githubuser = {profile.githubuser}/>} 
+            </Fragment>}
         </Fragment>
     )
 }

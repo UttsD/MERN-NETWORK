@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Moment from 'react-moment'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {addLike, deleteLike, deletePost} from '../../actions/post-actions';
 
-function PostItem({auth, addLike, deleteLike, deletePost, post: {
+
+function PostItem({auth, singlePost, addLike, deleteLike, deletePost, post: {
     _id,
     text,
     name,
@@ -15,6 +16,7 @@ function PostItem({auth, addLike, deleteLike, deletePost, post: {
     comments
 }}) {
     return (
+        
         <div class="post bg-white p-1 my-1">
             <div>
                 <a href="profile.html">
@@ -31,7 +33,7 @@ function PostItem({auth, addLike, deleteLike, deletePost, post: {
                 <p class="my-1">{text}</p>
                 <p class="post-date">
                     Posted on <Moment format='YYYY/MM/DD'>{date}</Moment></p>
-                <button  type="button" class="btn btn-light" onClick = {e => addLike(_id)}>
+                    {!singlePost && (<Fragment><button  type="button" class="btn btn-light" onClick = {e => addLike(_id)}>
                     <i class="fas fa-thumbs-up"></i>
                     <span> {likes.length}</span>
                 </button>
@@ -47,12 +49,14 @@ function PostItem({auth, addLike, deleteLike, deletePost, post: {
                         class="btn btn-danger" onClick = {e => deletePost(_id)}
                     >
                         <i class="fas fa-times"></i>
-                    </button>)
-                }
-                
+                    </button>)}</Fragment>)}
+                 
             </div>
         </div>
     )
+}
+PostItem.defaultProps = {
+    singlePost: false
 }
 
 const mapStateToProps = state => ({

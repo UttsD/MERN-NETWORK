@@ -36,7 +36,7 @@ const PostSchema = new mongoose.Schema({
       type: String
     },
 
-    avatart: {
+    avatar: {
       type: String
     },
 
